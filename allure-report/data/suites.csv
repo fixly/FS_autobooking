@@ -1,0 +1,2 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","84570","test_booking_pages","Tests","Fri May 16 11:08:40 MSK 2025","passed","Fri May 16 11:10:05 MSK 2025","TestBookingPages","BookingSmoke","",""

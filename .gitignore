@@ -1,0 +1,9 @@
+/.idea
+/allure-results
+/venv
+**/videos
+/.vscode
+*.pyc
+*.env
+*.venv
+/.dockerignore

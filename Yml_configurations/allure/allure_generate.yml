@@ -1,0 +1,28 @@
+  stage: Report
+  image: frankescobar/allure-docker-service
+  script:
+     - allure generate -c ./allure-results -o ./allure-report
+  artifacts:
+    paths:
+      - ./allure-results
+      - ./allure-report
+    expire_in: 30 day
+  when: always
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_NAME == "booking"
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_NAME == "regress"
+
+pages:
+  stage: Deploy
+  image: alpine:latest
+  script:
+    - mkdir public
+    - chmod -R 777 public
+    - mv ./allure-report/* public
+  artifacts:
+    paths:
+      - public
+  when: always
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_NAME == "booking"
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_NAME == "regress"

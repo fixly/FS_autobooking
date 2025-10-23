@@ -1,0 +1,20 @@
+services:
+  test-runner:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: FS_AutoBooking_project
+#    image:
+    container_name: tests
+    working_dir: /FS_AutoBooking
+    volumes:
+      - ${PWD}:/FS_AutoBooking # аналог для: docker run -e TEST_CHAT_TG=y --env-file .env -it --name booking -v ${PWD}:/FS_AutoBooking image bash
+    environment:
+      - IS_HEADLESS=y
+      - PYTHONUNBUFFERED=1
+    env_file:
+      - .env
+    stdin_open: true                  # -i
+    tty: true                         # -t
+    command: [ "bash" ]
+#    command: ["sh", "-c", "pytest src/tests/booking --alluredir=/FS_AutoBooking/allure-results"]

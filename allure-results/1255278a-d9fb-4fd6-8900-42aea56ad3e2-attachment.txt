@@ -1,0 +1,5 @@
+
+Allure результаты сохранены в allure-results/
+Для генерации отчета выполните:
+allure generate allure-results -o allure-report --clean
+allure open allure-report

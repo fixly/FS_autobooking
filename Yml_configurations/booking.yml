@@ -1,0 +1,38 @@
+# Jobs:
+#   booking_tours
+#   check_last_booking
+
+booking_tours:
+  image:
+  variables:
+    TEST_CHAT_TG: "n"
+    IS_HEADLESS: "y"
+    PYTHONUNBUFFERED: "1"
+  when: always
+  stage: Test
+  before_script:
+    - mkdir -p logs
+    - chmod 777 src/Tests/booking_test.py
+  script:
+    - PYTHONPATH=$(pwd) src/Tests/booking_test.py
+    - cp -r src/Tests/* logs/
+    - cp -r src/Tests/logs/* logs/
+  allow_failure: false
+  artifacts:
+    when: always
+    paths:
+      - ./logs/
+    expire_in: 30 days
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_NAME == "booking"
+
+check_last_booking:
+  image:
+  variables:
+    TEST_CHAT_TG: "n"
+  when: always
+  stage: Test
+  script:
+    - PYTHONPATH=$(pwd) python src/tests/booking/tour/utils/check_last_booking.py
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_NAME == "last_booking"

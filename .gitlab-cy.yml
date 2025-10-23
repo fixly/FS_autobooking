@@ -1,0 +1,11 @@
+image: python:3.12
+
+stages:
+  - Test
+  - Smoke
+  - Regress
+  - Report
+  - Deploy
+
+include:
+- "yml_configurations/booking.yml"
